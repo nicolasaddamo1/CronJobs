@@ -1,0 +1,26 @@
+name: Run Cron Jobs
+
+on:
+  schedule:
+    - cron: '0 0 25 12 *' # Ejecutar a medianoche del 25 de diciembre
+    - cron: '0 0 1 1 *'   # Ejecutar a medianoche del 1 de enero
+    - cron: '0 0 * * *'   # Ejecutar diariamente para los cumpleaños
+
+jobs:
+  run-cron-jobs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run cron jobs
+      run: node cronjobs.js
